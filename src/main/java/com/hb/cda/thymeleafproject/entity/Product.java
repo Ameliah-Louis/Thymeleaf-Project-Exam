@@ -1,9 +1,9 @@
 package com.hb.cda.thymeleafproject.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -15,6 +15,8 @@ public class Product {
     private Double price;
     private String description;
     private Integer stock;
+    @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<CartItem> cartItems = new ArrayList<CartItem>();
     public Product(String name, Double price, String description, Integer stock) {
         this.name = name;
         this.price = price;
@@ -84,4 +86,11 @@ public class Product {
         this.stock = stock;
     }
 
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
 }

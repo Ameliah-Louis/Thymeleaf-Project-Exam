@@ -1,12 +1,15 @@
 package com.hb.cda.thymeleafproject.security;
 
 import com.hb.cda.thymeleafproject.entity.Cart;
+import com.hb.cda.thymeleafproject.entity.CartItem;
 import com.hb.cda.thymeleafproject.entity.Product;
 import com.hb.cda.thymeleafproject.entity.User;
 import com.hb.cda.thymeleafproject.repository.CartRepository;
 import com.hb.cda.thymeleafproject.repository.ProductRepository;
 import com.hb.cda.thymeleafproject.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -28,5 +31,34 @@ public CartService(CartRepository cartRepo, ProductRepository productRepo, UserR
                     return cart;
                 });
     }
+public void addProductToCart(User user, String product_id) {
+    Product product = productRepo.findById(product_id).orElseThrow(()-> new IllegalArgumentException("product not found :" + product_id));
 
+    //si le produit est deja dans le panier
+    Cart cart = getCart(user);
+    Optional<CartItem> existingItem = cart.getCartItems().stream()
+            .filter(item -> item.getProduct().getId().equals(product))
+            .findFirst();
+
+    if (existingItem.isPresent()) {
+        existingItem.get().setQuantity(existingItem.get().getQuantity() + 1);
+    }else{
+        CartItem newItem = new CartItem(1, product);
+        newItem.setCart(cart);
+        cart.getCartItems().add(newItem);
+    }
+    cartRepo.save(cart);
+}
+
+public void removeProductFromCart(User user, String product_id) {
+    Cart cart = getCart(user);
+    cart.getCartItems().removeIf(item -> item.getProduct().getId().equals(product_id));
+    cartRepo.save(cart);
+}
+
+public void clearCart (User user) {
+    Cart cart = getCart(user);
+    cart.getCartItems().clear();
+    cartRepo.save(cart);
+}
 }

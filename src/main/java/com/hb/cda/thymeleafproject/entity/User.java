@@ -70,7 +70,8 @@ public class User implements UserDetails {
     public void setRole(String role) {
         this.role = role;
     }
-    
+    public Cart getCart() {return cart;}
+    public void setCart(Cart cart) {this.cart = cart;}
 
     @Override
     public int hashCode() {
