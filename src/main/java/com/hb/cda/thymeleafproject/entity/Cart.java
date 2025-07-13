@@ -18,6 +18,7 @@ public class Cart {
 
     // Utilisateur lié à ce panier (si applicable)
     @OneToOne(mappedBy = "persistentCart")
+    @JoinColumn(name = "user_id") //Clé étrangère
     private User user;
 
     // Ajoute des méthodes pour manipuler les items (ajouter, retirer, etc.)
