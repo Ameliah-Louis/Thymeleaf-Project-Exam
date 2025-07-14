@@ -31,6 +31,7 @@ public class CartController {
     public String cart(Model model, Principal principal) {
         User user = userRepo.findByUsername(principal.getName()).orElseThrow(()->new UsernameNotFoundException("Username not found"));
         Cart cart = cartService.getCart(user);
+        if (cart == null) {model.addAttribute("cart", new Cart());}
         model.addAttribute("cart", cart);
         model.addAttribute("user", user);
         model.addAttribute("total", cart.getTotalPrice(user));
