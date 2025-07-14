@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<title>MarketPlace</title>
+</head>
+
+<body>
+
+<h1>Bonjour <span th:text="${user.username}">Utilisateur</span>, voici notre magasin</h1>
+
+<h2>Liste de nos produits</h2>
+
+<div>
+    <div th:if="${products.isEmpty()}">
+        <p>Pas de produit en stock. <br> Repassez prochainement, bisous</p>
+    </div>
+</div>
+
+<div>
+    <div th:else="${products.size() !=0}">
+        <table>
+            <tr>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price} + '€' "></td>
+                <td>
+                    <form th:action="@{'/cart/add/' + ${product.id}}" method="post"></form>
+                    <button type="submit"> Add to my cart</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<h3>
+    <a th:href="@{/cart}"> Clic here to see your cart</a>
+</h3>
+
+</body>
+</html>

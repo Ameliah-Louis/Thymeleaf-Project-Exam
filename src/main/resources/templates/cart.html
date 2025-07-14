@@ -8,47 +8,48 @@
 <body>
 <h1>Bonjour <span th:text="${user.username}">Utilisateur</span>, voici votre panier</h1>
 
-<!--<div th:if="${#cart.isEmpty(cart.items)}">-->
-<!--    <p>Votre panier est vide.</p>-->
-<!--</div>-->
-<!--<div></div>-->
-<!--<div th:if="${!#cart.isEmpty(cart.items)}">-->
-<!--    <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>Produit</th>-->
-<!--            <th>Prix unitaire</th>-->
-<!--            <th>Quantité</th>-->
-<!--            <th>Total</th>-->
-<!--            <th>Action</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="item : ${cart.items}">-->
-<!--            <td th:text="${item.product.name}">Nom du produit</td>-->
-<!--            <td th:text="${item.product.price}">0.00</td>-->
-<!--            <td th:text="${item.quantity}">1</td>-->
-<!--            <td th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 1, 'POINT', 2, 'ZERO')}">0.00</td>-->
-<!--            <td>-->
-<!--                <form th:action="@{'/cart/remove/' + ${item.product.id}}" method="post">-->
-<!--                    <button type="submit">Retirer</button>-->
-<!--                </form>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+<div th:if="${cart.getCartItems().isEmpty()}">
+    <p>Votre panier est vide.</p>
+</div>
 
-<!--    <h3>Total : <span th:text="${total}">0.00</span> €</h3>-->
+<div th:if="${!cart.getCartItems().isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cart.items}">
+            <td th:text="${item.product.name}">Nom du produit</td>
+            <td th:text="${item.product.price}">0.00</td>
+            <td th:text="${item.quantity}">1</td>
+            <!--            <td th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 1, 'POINT', 2, 'ZERO')}">0.00</td>-->
+            <td>
+                <form th:action="@{'/cart/remove/' + ${item.product.id}}" method="post">
+                    <button type="submit">Retirer</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<!--    <form th:action="@{/cart/clear}" method="post">-->
-<!--        <button type="submit">Vider le panier</button>-->
-<!--    </form>-->
 
-<!--    <form th:action="@{/checkout}" method="post">-->
-<!--        <button type="submit">Passer commande</button>-->
-<!--    </form>-->
-<!--</div>-->
+    <h3>Total : <span th:text="${total}">0.00</span> €</h3>
 
-<!--<a href="/">Retour à la boutique</a>-->
+    <form th:action="@{/cart/clear}" method="post">
+        <button type="submit">Vider le panier</button>
+    </form>
+
+    <form th:action="@{/checkout}" method="post">
+        <button type="submit">Passer commande</button>
+    </form>
+</div>
+
+<a href="/">Bakc to products</a>
 </body>
 </html>
