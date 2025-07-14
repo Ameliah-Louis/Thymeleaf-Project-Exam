@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Title</title>
 </head>
 <body>
@@ -19,16 +20,14 @@
             <th>Produit</th>
             <th>Prix unitaire</th>
             <th>Quantité</th>
-            <th>Total</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${cart.items}">
+        <tr th:each="item : ${items}">
             <td th:text="${item.product.name}">Nom du produit</td>
             <td th:text="${item.product.price}">0.00</td>
             <td th:text="${item.quantity}">1</td>
-            <!--            <td th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 1, 'POINT', 2, 'ZERO')}">0.00</td>-->
             <td>
                 <form th:action="@{'/cart/remove/' + ${item.product.id}}" method="post">
                     <button type="submit">Retirer</button>
@@ -50,6 +49,6 @@
     </form>
 </div>
 
-<a href="/">Bakc to products</a>
+<a href="/">Back to products</a>
 </body>
 </html>

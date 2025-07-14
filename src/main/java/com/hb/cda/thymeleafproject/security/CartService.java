@@ -37,7 +37,7 @@ public void addProductToCart(User user, String product_id) {
     //si le produit est deja dans le panier
     Cart cart = getCart(user);
     Optional<CartItem> existingItem = cart.getCartItems().stream()
-            .filter(item -> item.getProduct().getId().equals(product))
+            .filter(item -> item.getProduct().equals(product))
             .findFirst();
 
     if (existingItem.isPresent()) {

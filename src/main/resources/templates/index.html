@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-<title>MarketPlace</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>MarketPlace</title>
 </head>
 
 <body>
@@ -29,8 +30,9 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.price} + '€' "></td>
                 <td>
-                    <form th:action="@{'/cart/add/' + ${product.id}}" method="post"></form>
+                    <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
                     <button type="submit"> Add to my cart</button>
+                    </form>
                 </td>
             </tr>
         </table>

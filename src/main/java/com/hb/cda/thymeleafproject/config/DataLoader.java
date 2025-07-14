@@ -28,9 +28,9 @@ public class DataLoader implements CommandLineRunner {
         if (productRepo.count()==0){
             Product product1 = new Product("Nintendo Switch", 300.0, "Console de jeu Nintendo", 6);
             productRepo.save(product1);
-            Product product2 = new Product("Nintendo PS5", 550.0, "Console de jeu PlayStation", 2);
+            Product product2 = new Product("PS5", 550.0, "Console de jeu PlayStation", 2);
             productRepo.save(product2);
-            Product product3 = new Product("Nintendo Xbox", 500.0, "Console de jeu Microsoft", 10);
+            Product product3 = new Product("Xbox", 500.0, "Console de jeu Microsoft", 10);
             productRepo.save(product3);
         }
         if (userRepo.count()==0){

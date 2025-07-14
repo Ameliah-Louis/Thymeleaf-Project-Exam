@@ -52,7 +52,7 @@ public class CartController {
     public String addToCart(Model model, @PathVariable String productId, Principal principal) {
         User user = userRepo.findByUsername(principal.getName()).orElseThrow(()->new UsernameNotFoundException("Username not found"));
         cartService.addProductToCart(user, productId);
-        return "redirect:/cart";
+        return "redirect:/";
     }
 
     @PostMapping("/cart/clear")
